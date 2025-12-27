@@ -5,22 +5,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import oxygen.services.jobs_processor.core.JobRouter;
+import oxygen.services.jobs_processor.core.OxyJobRouter;
 import oxygen.services.jobs_processor.models.JobRequest;
 import oxygen.services.jobs_processor.models.JobResult;
 
 @RestController
 @RequestMapping("/api/v1/oxy-jobs/processor")
-public class JobController {
+public class OxyJobController {
 
-    private final JobRouter jobRouter;
+    private final OxyJobRouter oxyJobRouter;
 
-    public JobController(JobRouter jobRouter) {
-        this.jobRouter = jobRouter;
+    public OxyJobController(OxyJobRouter oxyJobRouter) {
+        this.oxyJobRouter = oxyJobRouter;
     }
 
     @PostMapping("/trigger")
     public ResponseEntity<JobResult> triggerJob(@RequestBody JobRequest request) {
-        return ResponseEntity.ok().body(jobRouter.route(request));
+        return ResponseEntity.ok().body(oxyJobRouter.route(request));
     }
 }

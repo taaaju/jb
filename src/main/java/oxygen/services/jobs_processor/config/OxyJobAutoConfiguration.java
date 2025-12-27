@@ -6,21 +6,21 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import oxygen.services.jobs_processor.core.JobExecutor;
-import oxygen.services.jobs_processor.core.JobHandler;
-import oxygen.services.jobs_processor.core.JobRouter;
+import oxygen.services.jobs_processor.core.OxyJobExecutor;
+import oxygen.services.jobs_processor.core.OxyJobHandler;
+import oxygen.services.jobs_processor.core.OxyJobRouter;
 
 import java.util.List;
 
 @AutoConfiguration
 @Configuration
-@ConditionalOnClass(JobHandler.class)
+@ConditionalOnClass(OxyJobHandler.class)
 @ComponentScan(basePackages = "oxygen.services.jobs_processor")
-public class JobAutoConfiguration {
+public class OxyJobAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public JobRouter jobRouter(List<JobHandler> handlers, JobExecutor executor) {
-        return new JobRouter(handlers, executor);
+    public OxyJobRouter jobRouter(List<OxyJobHandler> handlers, OxyJobExecutor executor) {
+        return new OxyJobRouter(handlers, executor);
     }
 }

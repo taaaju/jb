@@ -23,7 +23,7 @@ import javax.sql.DataSource;
         entityManagerFactoryRef = "orchestratorEntityManagerFactory",
         transactionManagerRef = "orchestratorTransactionManager"
 )
-public class OrchestratorDatabaseConfiguration {
+public class OxyOrchestratorDatabaseConfiguration {
 
     @Bean
     @ConfigurationProperties("spring.datasource.orchestrator")

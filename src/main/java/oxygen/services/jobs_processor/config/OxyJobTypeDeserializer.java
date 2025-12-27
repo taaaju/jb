@@ -5,17 +5,17 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
-import oxygen.services.jobs_processor.core.JobHandler;
+import oxygen.services.jobs_processor.core.OxyJobHandler;
 import oxygen.services.jobs_processor.models.JobType;
 
 import java.io.IOException;
 
 @Component
-public class JobTypeDeserializer extends JsonDeserializer<JobType> {
+public class OxyJobTypeDeserializer extends JsonDeserializer<JobType> {
 
     private final ApplicationContext applicationContext;
 
-    public JobTypeDeserializer(ApplicationContext applicationContext) {
+    public OxyJobTypeDeserializer(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
@@ -24,8 +24,8 @@ public class JobTypeDeserializer extends JsonDeserializer<JobType> {
         String value = p.getValueAsString();
 
         // Find all JobHandler beans and look for a JobType with a matching name
-        return applicationContext.getBeansOfType(JobHandler.class).values().stream()
-                .map(JobHandler::supports)
+        return applicationContext.getBeansOfType(OxyJobHandler.class).values().stream()
+                .map(OxyJobHandler::supports)
                 .filter(type -> type.name().equalsIgnoreCase(value))
                 .findFirst()
                 .orElseThrow(() -> new IOException("Unknown JobType: " + value));

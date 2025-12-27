@@ -5,9 +5,9 @@ import oxygen.services.jobs_processor.models.JobContext;
 import oxygen.services.jobs_processor.models.JobResult;
 
 @Component
-public class JobExecutor {
+public class OxyJobExecutor {
 
-    public JobResult execute(JobHandler handler, JobContext context) {
+    public JobResult execute(OxyJobHandler handler, JobContext context) {
         try {
             return handler.handle(context);
 

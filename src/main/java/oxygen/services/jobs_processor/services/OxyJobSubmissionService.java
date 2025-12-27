@@ -1,8 +1,9 @@
 package oxygen.services.jobs_processor.services;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import oxygen.services.jobs_processor.config.RetryConfigProperties;
+import oxygen.services.jobs_processor.config.OxyJobRetryConfigProperties;
 import oxygen.services.jobs_processor.models.EventStatus;
 import oxygen.services.jobs_processor.models.JobRequest;
 import oxygen.services.jobs_processor.persistence.entities.OrchestratorEvent;
@@ -10,17 +11,13 @@ import oxygen.services.jobs_processor.persistence.repositories.OrchestratorEvent
 
 @Slf4j
 @Service
-public class JobSubmissionService {
-    private final RetryConfigProperties retryConfigProperties;
+@RequiredArgsConstructor
+public class OxyJobSubmissionService {
+    private final OxyJobRetryConfigProperties oxyJobRetryConfigProperties;
     private final OrchestratorEventRepository repository;
 
-    public JobSubmissionService(RetryConfigProperties retryConfigProperties, OrchestratorEventRepository repository) {
-        this.retryConfigProperties = retryConfigProperties;
-        this.repository = repository;
-    }
-
     public OrchestratorEvent submitNewRequest(JobRequest request, String callBackUrl) {
-        var settings = retryConfigProperties.getSettingsFor(request.jobType().name());
+        var settings = oxyJobRetryConfigProperties.getSettingsFor(request.jobType().name());
 
         OrchestratorEvent orchestratorEvent = new OrchestratorEvent();
         orchestratorEvent.setEventIdentifier(request.reference());

@@ -4,7 +4,7 @@ import oxygen.services.jobs_processor.models.JobContext;
 import oxygen.services.jobs_processor.models.JobResult;
 import oxygen.services.jobs_processor.models.JobType;
 
-public interface JobHandler {
+public interface OxyJobHandler {
 
     JobType supports();
 

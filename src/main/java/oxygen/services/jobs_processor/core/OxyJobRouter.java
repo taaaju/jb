@@ -12,15 +12,15 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component
-public class JobRouter {
-    private final JobExecutor jobExecutor;
-    private final Map<JobType, JobHandler> handlers;
+public class OxyJobRouter {
+    private final OxyJobExecutor oxyJobExecutor;
+    private final Map<JobType, OxyJobHandler> handlers;
 
-    public JobRouter(List<JobHandler> handlerList, JobExecutor jobExecutor) {
-        this.jobExecutor = jobExecutor;
+    public OxyJobRouter(List<OxyJobHandler> handlerList, OxyJobExecutor oxyJobExecutor) {
+        this.oxyJobExecutor = oxyJobExecutor;
         this.handlers = handlerList.stream()
                 .collect(Collectors.toUnmodifiableMap(
-                        JobHandler::supports,
+                        OxyJobHandler::supports,
                         Function.identity(),
                         (a, b) -> {
                             throw new IllegalStateException(
@@ -31,7 +31,7 @@ public class JobRouter {
     }
 
     public JobResult route(JobRequest request) {
-        JobHandler handler = handlers.get(request.jobType());
+        OxyJobHandler handler = handlers.get(request.jobType());
 
         if (handler == null) {
             throw new UnsupportedOperationException(
@@ -39,7 +39,7 @@ public class JobRouter {
             );
         }
 
-        return jobExecutor.execute(
+        return oxyJobExecutor.execute(
                 handler,
                 new JobContext(request.reference(), request.metadata())
         );

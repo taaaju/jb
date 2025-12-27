@@ -12,7 +12,7 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "orchestrator.retry")
 @Getter
 @Setter
-public class RetryConfigProperties {
+public class OxyJobRetryConfigProperties {
 
     private BackoffSettings defaultStrategy;
     private Map<String, BackoffSettings> services = new HashMap<>();
