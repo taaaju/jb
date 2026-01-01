@@ -4,30 +4,22 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
-import java.nio.ByteBuffer;
-import java.security.SecureRandom;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class Utility {
     private Utility() {
     }
 
-    public static final ObjectMapper defaultMapper = mapper();
+    public static final ObjectMapper defaultMapper = mapper(null);
+    public static final ObjectMapper snakeCasedMapper = mapper(PropertyNamingStrategies.SNAKE_CASE);
 
-    private static ObjectMapper mapper() {
+    private static ObjectMapper mapper(PropertyNamingStrategy propertyNamingStrategy) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
+        if (propertyNamingStrategy != null) {
+            mapper.setPropertyNamingStrategy(propertyNamingStrategy);
+        }
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         mapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
@@ -47,8 +39,16 @@ public class Utility {
     }
 
     public static String asJsonString(Object o) {
+        return asJsonString(o, defaultMapper);
+    }
+
+    public static String asSnakeCasedJsonString(Object o) {
+        return asJsonString(o, snakeCasedMapper);
+    }
+
+    public static String asJsonString(Object o, ObjectMapper objectMapper) {
         try {
-            return Utility.mapper().writeValueAsString(o);
+            return objectMapper.writeValueAsString(o);
         } catch (Exception e) {
             log.error("failed to convert to json string {} {}", o, e.getMessage());
         }
