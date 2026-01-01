@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>oxygen.services</groupId>
 	<artifactId>jobs-processor</artifactId>
-	<version>0.0.7</version>
+	<version>0.0.14</version>
 	<name>jobs-processor</name>
     <packaging>jar</packaging>
 	<description>processor for orchestrator integrations </description>
@@ -75,6 +75,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -89,8 +94,8 @@
 							<artifactId>lombok</artifactId>
 						</path>
 					</annotationProcessorPaths>
-                    <source>16</source>
-                    <target>16</target>
+                    <source>17</source>
+                    <target>17</target>
                 </configuration>
 			</plugin>
 			<plugin>

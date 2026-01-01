@@ -1,14 +1,13 @@
 package oxygen.services.jobs_processor.config;
 
-import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -25,19 +24,13 @@ import javax.sql.DataSource;
         entityManagerFactoryRef = "orchestratorEntityManagerFactory",
         transactionManagerRef = "orchestratorTransactionManager"
 )
+@EntityScan(basePackages = "oxygen.services.jobs_processor.persistence")
 public class OxyOrchestratorDatabaseConfiguration {
 
     @Bean
-    @DependsOn(value = "orchestratorDataSourceProperties")
-    @ConfigurationProperties("spring.datasource.hikari")
-    public DataSource orchestratorDataSource() {
-        return orchestratorDataSourceProperties().initializeDataSourceBuilder().type(HikariDataSource.class).build();
-    }
-
-    @Bean
     @ConfigurationProperties("spring.datasource.orchestrator")
-    public DataSourceProperties orchestratorDataSourceProperties() {
-        return new DataSourceProperties();
+    public DataSource orchestratorDataSource() {
+        return DataSourceBuilder.create().build();
     }
 
     @Bean
