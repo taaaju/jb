@@ -18,7 +18,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/taaaju/jb</url>
+            <url>https://maven.pkg.github.com/Oxygen-Digital-Bank/jobs-processor</url>
         </repository>
     </distributionManagement>
 
