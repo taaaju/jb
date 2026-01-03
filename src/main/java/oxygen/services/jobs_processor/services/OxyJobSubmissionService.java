@@ -28,9 +28,10 @@ public class OxyJobSubmissionService {
         orchestratorEvent.setCallbackUrl(callBackUrl);
 
         orchestratorEvent.setMinimumDelayInSeconds(settings.getInitialDelaySeconds());
+        orchestratorEvent.setMaximumDelayInSeconds(settings.getMaxDelaySeconds());
         orchestratorEvent.setRetryLimit(settings.getRetryLimit());
 
-        oxyJobMessengerService.deliverToOrchestrator(Utility.asSnakeCasedJsonString(orchestratorEvent));
+        oxyJobMessengerService.deliverToOrchestrator(orchestratorEvent);
 
         return orchestratorEvent;
     }

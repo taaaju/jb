@@ -14,7 +14,7 @@ import java.util.Map;
 @Setter
 public class OxyJobRetryConfigProperties {
 
-    private BackoffSettings defaultStrategy;
+    private BackoffSettings defaultStrategy = new BackoffSettings();
     private Map<String, BackoffSettings> services = new HashMap<>();
 
     @Getter

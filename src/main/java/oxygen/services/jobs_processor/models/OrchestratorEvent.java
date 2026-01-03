@@ -28,6 +28,8 @@ public class OrchestratorEvent {
 
     private long minimumDelayInSeconds;
 
+    private long maximumDelayInSeconds;
+
     @Override
     public String toString() {
         return "OrchestratorEvent{" +
@@ -35,6 +37,8 @@ public class OrchestratorEvent {
                 ", eventType='" + eventType +
                 ", callbackUrl='" + callbackUrl +
                 ", status='" + status +
+                ", maximumDelayInSeconds=" + maximumDelayInSeconds +
+                ", minimumDelayInSeconds=" + minimumDelayInSeconds +
                 ", attemptCount=" + attemptCount +
                 '}';
     }

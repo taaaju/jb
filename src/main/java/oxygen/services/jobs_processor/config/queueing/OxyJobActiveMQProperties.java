@@ -21,6 +21,9 @@ public class OxyJobActiveMQProperties {
 
   @PostConstruct
   private void postConstruct() {
+      if (defaultReplyTo == null) {
+          defaultReplyTo = "oxy-job-default-reply-queue";
+      }
     log.info("{} {}", this.getClass().getName(), this);
   }
 
