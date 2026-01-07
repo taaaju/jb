@@ -1,5 +1,7 @@
 package oxygen.services.jobs_processor.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
@@ -53,5 +55,28 @@ public class Utility {
             log.error("failed to convert to json string {} {}", o, e.getMessage());
         }
         return "";
+    }
+
+    public static Map<String, Object> toMapSafely(Object o) {
+        if (Objects.nonNull(o)) {
+            if (o instanceof Map<?, ?> m) {
+                return (Map<String, Object>) m;
+            }
+
+            if (o instanceof String s) {
+                return readStringAsMap(s);
+            }
+        }
+
+        return new HashMap<>();
+    }
+
+    public static Map<String, Object> readStringAsMap(String s) {
+        if (Objects.nonNull(s)) {
+            try {
+                return snakeCasedMapper.readValue(s, new TypeReference<Map<String, Object>>() {});
+            } catch (Exception ignored) {}
+        }
+        return new HashMap<>();
     }
 }

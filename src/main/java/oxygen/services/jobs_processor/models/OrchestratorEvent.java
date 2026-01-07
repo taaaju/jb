@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -17,6 +18,8 @@ public class OrchestratorEvent {
     private String eventType;
 
     private String callbackUrl;
+
+    private Map<String, Object> metaData;
 
     private String status;
 

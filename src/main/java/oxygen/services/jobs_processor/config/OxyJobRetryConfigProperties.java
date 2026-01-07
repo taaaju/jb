@@ -20,9 +20,9 @@ public class OxyJobRetryConfigProperties {
     @Getter
     @Setter
     public static class BackoffSettings {
-        private int initialDelaySeconds = 5;
+        private int initialDelaySeconds = 30;
         private int multiplier = 2;
-        private int maxDelaySeconds = 3600;
+        private int maxDelaySeconds = 36000;
         private int retryLimit = 5;
     }
     public BackoffSettings getSettingsFor(String eventType) {

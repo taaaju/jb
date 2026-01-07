@@ -26,6 +26,7 @@ public class OxyJobSubmissionService {
         orchestratorEvent.setEventType(request.jobType().name());
         orchestratorEvent.setStatus(EventStatus.PENDING.name());
         orchestratorEvent.setCallbackUrl(callBackUrl);
+        orchestratorEvent.setMetaData(request.metadata());
 
         orchestratorEvent.setMinimumDelayInSeconds(settings.getInitialDelaySeconds());
         orchestratorEvent.setMaximumDelayInSeconds(settings.getMaxDelaySeconds());

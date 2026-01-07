@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>oxygen.services</groupId>
 	<artifactId>jobs-processor</artifactId>
-	<version>0.0.4</version>
+	<version>0.0.7</version>
 	<name>jobs-processor</name>
     <packaging>jar</packaging>
 	<description>processor for orchestrator integrations </description>
